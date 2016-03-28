@@ -132,7 +132,7 @@ void Cus428Midi::ProcessMidiEvents()
 					break;
 				case MMC_CMD_RECORD_PAUSE:
 					if (verbose > 1)
-						fprintf(stderr, "RECORD ON.\n");
+						fprintf(stderr, "RECORD PAUSE.\n");
 					OneState->TransportSet(T_RECORD, true);
 					break;
 				case MMC_CMD_RECORD_EXIT:

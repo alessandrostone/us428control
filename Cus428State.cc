@@ -694,7 +694,11 @@ void Cus428State::TransportSet ( unsigned char T, bool V )
 	if (V) {
 		if (T == T_RECORD) {
 			uTransport |= T_RECORD;
-		} else {
+		}
+		else if (T == T_PLAY) {
+			uTransport |= T_PLAY;
+		}
+		else {
 			uTransport  = T;
 		}
 	} else {
