@@ -126,6 +126,10 @@ void Cus428Midi::ProcessMidiEvents()
 					OneState->TransportSet(T_REW, true);
 					break;
 				case MMC_CMD_RECORD_STROBE:
+					if (verbose > 1)
+						fprintf(stderr, "RECORD ON.\n");
+					OneState->TransportSet(T_RECORD, true);
+					break;
 				case MMC_CMD_RECORD_PAUSE:
 					if (verbose > 1)
 						fprintf(stderr, "RECORD ON.\n");
