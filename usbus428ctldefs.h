@@ -249,7 +249,15 @@ public:
 		eL_Low = 36,
 		eL_LowMid = 37,
 		eL_HiMid = 38,
-		eL_High = 39
+		eL_High = 39,
+		eL_Asgn = 40,
+		eL_F1 = 41,
+		eL_F2 = 42,
+		eL_F3 = 43,
+		eL_Aux1 = 44,
+		eL_Aux2 = 45,
+		eL_Aux3 = 46,
+		eL_Aux4 = 47
 	};
 	bool LightIs(int L){
 		return Light[L / 8].Value & (1 << (L % 8));

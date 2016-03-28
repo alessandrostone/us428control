@@ -221,6 +221,157 @@ void Cus428State::UserKnobChangedTo(eKnobs K, bool V)
 		if (verbose > 1)
 			printf(" Light is %i\n", LightIs(eL_BankR));
 		break;
+// AGR following copied from Mixxx section, still need to work out use of eqBand value
+// AGR EQ knobs
+	case eK_LOW:
+		if (verbose > 1)
+			printf("Knob LOW now %i\n", V);
+		if (V)
+			{
+				eqBand = 0;
+				LightSet(eL_Low, 1);
+				LightSet(eL_LowMid, 0);
+				LightSet(eL_HiMid, 0);
+				LightSet(eL_High, 0);
+				LightSend();
+			}
+		break;
+	case eK_LOWMID:
+		if (verbose > 1)
+			printf("Knob LOWMID now %i\n", V);
+		if (V)
+			{
+				eqBand = 1;
+				LightSet(eL_Low, 0);
+				LightSet(eL_LowMid, 1);
+				LightSet(eL_HiMid, 0);
+				LightSet(eL_High, 0);
+				LightSend();
+			}
+		break;
+	case eK_HIMID:
+		if (verbose > 1)
+			printf("Knob HIMID now %i\n", V);
+		if (V)
+			{
+				eqBand = 2;
+				LightSet(eL_Low, 0);
+				LightSet(eL_LowMid, 0);
+				LightSet(eL_HiMid, 1);
+				LightSet(eL_High, 0);
+				LightSend();
+			}
+		break;
+	case eK_HIGH:
+		if (verbose > 1)
+			printf("Knob HIGH now %i\n", V);
+		if (V)
+			{
+				eqBand = 3;
+				LightSet(eL_Low, 0);
+				LightSet(eL_LowMid, 0);
+				LightSet(eL_HiMid, 0);
+				LightSet(eL_High, 1);
+				LightSend();
+			}
+		break;
+// AGR Aux/Fn knobs
+	case eK_ASGN:
+		if (verbose > 1)
+			printf("Knob ASGN now %i\n",V);
+		if (V) {
+			bool bNull = ! LightIs(eL_Asgn);
+			LightSet(eL_Asgn, bNull);
+			LightSend();
+		}
+		if (verbose > 1)
+			printf(" Light is %i\n", LightIs(eL_Asgn));
+		Midi.SendMidiControl(15, K, V);
+		break;
+	case eK_F1:
+		if (verbose > 1)
+			printf("Knob F1 now %i\n",V);
+		if (V) {
+			bool bNull = ! LightIs(eL_F1);
+			LightSet(eL_F1, bNull);
+			LightSend();
+		}
+		if (verbose > 1)
+			printf(" Light is %i\n", LightIs(eL_F1));
+		Midi.SendMidiControl(15, K, V);
+		break;
+	case eK_F2:
+		if (verbose > 1)
+			printf("Knob F2 now %i\n",V);
+		if (V) {
+			bool bNull = ! LightIs(eL_F2);
+			LightSet(eL_F2, bNull);
+			LightSend();
+		}
+		if (verbose > 1)
+			printf(" Light is %i\n", LightIs(eL_F2));
+		Midi.SendMidiControl(15, K, V);
+		break;
+	case eK_F3:
+		if (verbose > 1)
+			printf("Knob F3 now %i\n",V);
+		if (V) {
+			bool bNull = ! LightIs(eL_F3);
+			LightSet(eL_F3, bNull);
+			LightSend();
+		}
+		if (verbose > 1)
+			printf(" Light is %i\n", LightIs(eL_F3));
+		Midi.SendMidiControl(15, K, V);
+		break;
+	case eK_AUX1:
+		if (verbose > 1)
+			printf("Knob AUX1 now %i\n",V);
+		if (V) {
+			bool bNull = ! LightIs(eL_Aux1);
+			LightSet(eL_Aux1, bNull);
+			LightSend();
+		}
+		if (verbose > 1)
+			printf(" Light is %i\n", LightIs(eL_Aux1));
+		Midi.SendMidiControl(15, K, V);
+		break;
+	case eK_AUX2:
+		if (verbose > 1)
+			printf("Knob AUX2 now %i\n",V);
+		if (V) {
+			bool bNull = ! LightIs(eL_Aux2);
+			LightSet(eL_Aux2, bNull);
+			LightSend();
+		}
+		if (verbose > 1)
+			printf(" Light is %i\n", LightIs(eL_Aux2));
+		Midi.SendMidiControl(15, K, V);
+		break;
+	case eK_AUX3:
+		if (verbose > 1)
+			printf("Knob AUX3 now %i\n",V);
+		if (V) {
+			bool bNull = ! LightIs(eL_Aux3);
+			LightSet(eL_Aux3, bNull);
+			LightSend();
+		}
+		if (verbose > 1)
+			printf(" Light is %i\n", LightIs(eL_Aux3));
+		Midi.SendMidiControl(15, K, V);
+		break;
+	case eK_AUX4:
+		if (verbose > 1)
+			printf("Knob AUX4 now %i\n",V);
+		if (V) {
+			bool bNull = ! LightIs(eL_Aux4);
+			LightSet(eL_Aux4, bNull);
+			LightSend();
+		}
+		if (verbose > 1)
+			printf(" Light is %i\n", LightIs(eL_Aux4));
+		Midi.SendMidiControl(15, K, V);
+		break;
 	default:
 		if (verbose > 1)
 			printf("Knob %i now %i\n", K, V);
@@ -276,7 +427,7 @@ void Cus428State::KnobChangedTo(eKnobs K, bool V)
 			} else {
 				if (LightIs(eL_Solo)) {
 					if (verbose > 1) {
-						printf("Track %i Solo ",Y * aBank + (K & 7) + 1);
+						printf("Track %i SOLO ",Y * aBank + (K & 7) + 1);
 						printf("Knob %i now %i ", K, V);
 						printf(" Light is %i\n", LightIs(M));
 					}
@@ -284,8 +435,8 @@ void Cus428State::KnobChangedTo(eKnobs K, bool V)
 						Y * aBank + (K & 7), LightIs(M));
 				} else {
 					if (verbose > 1) {
-						printf("Track %i Mute ",Y * aBank + (K & 7) + 1);
-						printf("Knob %i now %i ", K, V); // AGR display verbose mute status
+						printf("Track %i MUTE ",Y * aBank + (K & 7) + 1);
+						printf("Knob %i now %i ", K, V);
 						printf(" Light is %i\n", LightIs(M));
 					}
 					SendMaskedWrite(MMC_CIF_TRACK_MUTE,
@@ -339,20 +490,30 @@ void Cus428State::UserWheelChangedTo(E_In84 W, char Diff)
 {
 	char Param;
 	switch (W) {
-	case eWheelPan:
-		Param = 0x4D;
-		break;
 	case eWheelGain:
-		Param = 0x48;
+		Param = 0x48 + eqBand * 4;
+		if (verbose > 1)
+			printf("EQ GAIN wheel %i turned\n",W);
 		break;
 	case eWheelFreq:
-		Param = 0x49;
+		Param = 0x49 + eqBand * 4;
+		if (verbose > 1)
+			printf("EQ FREQ wheel %i turned\n",W);
 		break;
 	case eWheelQ:
-		Param = 0x4A;
+		Param = 0x4A + eqBand * 4;
+		if (verbose > 1)
+			printf("EQ Q wheel %i turned\n",W);
+		break;
+	case eWheelPan:
+		Param = 0x4B;
+		if (verbose > 1)
+			printf("PAN wheel %i turned\n",W);
 		break;
 	case eWheel:
 		Param = 0x60;
+		if (verbose > 1)
+			printf("SHUTTLE wheel %i turned\n",W);
 		// Update the absolute wheel position.
 		WheelDelta((int) ((unsigned char *) us428_ctls)[W]);
 		break;
@@ -714,7 +875,7 @@ Cus428StateMixxx::Cus428StateMixxx(
 	: Cus428State(Pus428ctls_sharedmem, y)
 {
 	focus = 0;
-	eq = 0;
+	eqBand = 0;
 	LightSet(eL_Low, 1);
 	LightSet(eL_LowMid, 0);
 	LightSet(eL_HiMid, 0);
@@ -769,7 +930,7 @@ void Cus428StateMixxx::UserKnobChangedTo(eKnobs K, bool V)
 			printf("Knob LOW now %i\n", V);
 		if (V)
 			{
-				eq = 0;
+				eqBand = 0;
 				LightSet(eL_Low, 1);
 				LightSet(eL_LowMid, 0);
 				LightSet(eL_HiMid, 0);
@@ -782,7 +943,7 @@ void Cus428StateMixxx::UserKnobChangedTo(eKnobs K, bool V)
 			printf("Knob LOWMID now %i\n", V);
 		if (V)
 			{
-				eq = 1;
+				eqBand = 1;
 				LightSet(eL_Low, 0);
 				LightSet(eL_LowMid, 1);
 				LightSet(eL_HiMid, 0);
@@ -795,7 +956,7 @@ void Cus428StateMixxx::UserKnobChangedTo(eKnobs K, bool V)
 			printf("Knob HIMID now %i\n", V);
 		if (V)
 			{
-				eq = 2;
+				eqBand = 2;
 				LightSet(eL_Low, 0);
 				LightSet(eL_LowMid, 0);
 				LightSet(eL_HiMid, 1);
@@ -808,7 +969,7 @@ void Cus428StateMixxx::UserKnobChangedTo(eKnobs K, bool V)
 			printf("Knob HIGH now %i\n", V);
 		if (V)
 			{
-				eq = 3;
+				eqBand = 3;
 				LightSet(eL_Low, 0);
 				LightSet(eL_LowMid, 0);
 				LightSet(eL_HiMid, 0);
@@ -867,16 +1028,16 @@ void Cus428StateMixxx::UserWheelChangedTo(E_In84 W, char Diff)
 	Channel = 0;
 	switch (W) {
 	case eWheelGain:
-		Param = 0x48 + eq * 4;
+		Param = 0x48 + eqBand * 4;
 		break;
 	case eWheelFreq:
-		Param = 0x49 + eq * 4;
+		Param = 0x49 + eqBand * 4;
 		break;
 	case eWheelQ:
-		Param = 0x4A + eq * 4;
+		Param = 0x4A + eqBand * 4;
 		break;
 	case eWheelPan:
-		Param = 0x4B + eq * 4;
+		Param = 0x4B + eqBand * 4;
 		break;
 	case eWheel:
 		Param = 0x60;

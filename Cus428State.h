@@ -184,6 +184,8 @@ protected:
 	int aWheelSpeed;
 	// The official number of faders (channels per bank)
 	int Y;
+	// Which EQ band is selected
+	int eqBand;
 };
 
 
@@ -195,7 +197,7 @@ public:
 	void UserWheelChangedTo(E_In84 W, char Diff);
 protected:
 	int focus;
-	int eq;
+	int eqBand;
 };
 
 extern Cus428State* OneState;

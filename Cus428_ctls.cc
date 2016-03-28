@@ -29,11 +29,12 @@ Cus428State* OneState;
 void
 Cus428_ctls::dump(int n)
 {
-	for (int m = 0; m < n; m++)
+    printf("  MIDI  ");
+    for (int m = 0; m < n; m++)
 		printf("   ");
 	for (; n < sizeof(*this); n++)
-		printf("%02hhX ", ((char*)this)[n]);
-	printf("\n");
+        printf("%02hhX ", ((char*)this)[n]);
+    printf("\n\n");
 }
 
 void
