@@ -232,7 +232,7 @@ void Cus428State::UserKnobChangedTo(eKnobs K, bool V)
 void Cus428State::KnobChangedTo(eKnobs K, bool V)
 {
 //	switch (K & ~(StateInputMonitor() ? 3 : -1)) {
-	switch (K & ~3) {
+	switch (K & ~(Y-1)) {
 	case eK_Select0:
 		if (V) {
 			int S = eL_Select0 + (K & 7);
@@ -242,6 +242,11 @@ void Cus428State::KnobChangedTo(eKnobs K, bool V)
 				int R = eL_Rec0 + (K & 7);
 				LightSet(R, !LightIs(R));
 				if (!StateInputMonitor()) {
+					if (verbose > 1) {
+						printf("Track %i RECarm ",Y * aBank + (K & 7) + 1);
+						printf("Knob %i now %i ", K, V);
+						printf(" Light is %i\n", LightIs(R));
+					}
 					SendMaskedWrite(MMC_CIF_TRACK_RECORD,
 						Y * aBank + (K & 7), LightIs(R));
 				}
@@ -270,9 +275,19 @@ void Cus428State::KnobChangedTo(eKnobs K, bool V)
 				}
 			} else {
 				if (LightIs(eL_Solo)) {
+					if (verbose > 1) {
+						printf("Track %i Solo ",Y * aBank + (K & 7) + 1);
+						printf("Knob %i now %i ", K, V);
+						printf(" Light is %i\n", LightIs(M));
+					}
 					SendMaskedWrite(MMC_CIF_TRACK_SOLO,
 						Y * aBank + (K & 7), LightIs(M));
 				} else {
+					if (verbose > 1) {
+						printf("Track %i Mute ",Y * aBank + (K & 7) + 1);
+						printf("Knob %i now %i ", K, V); // AGR display verbose mute status
+						printf(" Light is %i\n", LightIs(M));
+					}
 					SendMaskedWrite(MMC_CIF_TRACK_MUTE,
 						Y * aBank + (K & 7), LightIs(M));
 				}
